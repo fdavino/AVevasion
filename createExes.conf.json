@@ -1,7 +1,6 @@
 {   
     "info":{
-        "path": "/home/ferdinando/Scrivania/Università/Tesi/Prove",
-        "filename": "HelloWorld.c"   
+        "path": "/home/ferdinando/Scrivania/Università/Tesi/AVevasion/HelloWorld.c"
     },
 	"compilers": {
 		"gcc": {

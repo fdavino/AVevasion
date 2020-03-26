@@ -8,7 +8,7 @@ def usage():
     print("usage: python3 createExes.py config.conf.json [--clear|-c]")
 
 def createPath(info):
-    path = "{}/{}".format(info['path'],info['filename'])
+    path = info['path']
     return path
 
 #execute a list of compilations
