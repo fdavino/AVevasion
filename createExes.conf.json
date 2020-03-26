@@ -1,0 +1,29 @@
+{   
+    "info":{
+        "path": "/home/ferdinando/Scrivania/Università/Tesi/Prove",
+        "filename": "HelloWorld.c"   
+    },
+	"compilers": {
+		"gcc": {
+			"path": "/usr/bin/gcc",
+			"optionBefore": [],
+            "optionAfter": [
+				"-o hw.out"
+			]
+		},
+		"clang": {
+			"path": "/usr/bin/clang",
+			"optionBefore": [
+                "-o hw.out"                
+                ],
+            "optionAfter": []
+		},
+        "g++": {
+			"path": "/usr/bin/g++",
+			"optionBefore": [
+                "-o hw.out"                
+                ],
+            "optionAfter": []
+		}
+	}
+}
