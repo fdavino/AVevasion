@@ -1,6 +1,6 @@
 import json
 import subprocess
-import os
+import os.
 import sys
 import shutil
 
@@ -16,6 +16,7 @@ def addOptions(command, options):
                 if "name" in olist:
                     command = "{} {}".format(command,olist['name'])
                 else:
+                    print("ERROR: every option need a name")
                     continue
                 if "value" in olist:
                     for val in olist['value']:
