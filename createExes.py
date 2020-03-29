@@ -11,26 +11,48 @@ def createPath(info):
     path = info['path']
     return path
 
+def addOptions(command, options):
+    for olist in options:
+                if "name" in olist:
+                    command = "{} {}".format(command,olist['name'])
+                else:
+                    continue
+                if "value" in olist:
+                    for val in olist['value']:
+                        command = "{} {}".format(command,val)
+    return command
+
 #execute a list of compilations
 def createExes(): 
 #parse config file
     with open(CONF_FILE) as json_conf:
         data = json.load(json_conf)
-        info = data['info']
+        info = dict(data['info'])
+        if not "inputFile" in info:
+            print("ERROR: input file not specified")
+            sys.exit(1) 
         compilers = dict(data['compilers'])
+
 #create command string
     for c in compilers:
-        field = dict(compilers[c])
+        cInExam = compilers[c]
+        if "path" in cInExam:
+            command = "{} ".format(cInExam["path"])
+        else:
+            print("ERROR: {} not have a path".format(c))
+            continue
 
-        f = createPath(info)
+        if "options1" in cInExam:
+            options1 = cInExam['options1']
+            command = addOptions(command, options1)
+        
+        command = "{} {}".format(command,info["inputFile"])
 
-        command = field['path']
-        for o in field['optionBefore']:
-            command = "{} {}".format(command,o)
-        command = "{} {}".format(command,f)
-        for o in field['optionAfter']:
-            command = "{} {}".format(command,o)
-
+        if "options2" in cInExam:
+            options2 = cInExam['options2']
+            command = addOptions(command, options2)
+        
+        print(command)
 #create destionation folder
         if(not(os.path.exists(c)) or not(os.path.isdir(c))):
             os.mkdir(c)
@@ -56,7 +78,7 @@ def clear():
 
 #main 
 
-if(len(sys.argv) > 1):
+if len(sys.argv) > 1:
     CONF_FILE = sys.argv[1]
 else:
     usage()    
