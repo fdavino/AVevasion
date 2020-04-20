@@ -1,6 +1,6 @@
 import json
 import subprocess
-import os.
+import os
 import sys
 import shutil
 
@@ -57,6 +57,8 @@ def createExes():
 #create destionation folder
         if(not(os.path.exists(c)) or not(os.path.isdir(c))):
             os.mkdir(c)
+#redirect on log file
+        command = "{} 2>&1 > error-{}.log".format(command, c)
 #compiling
         os.chdir(c)
         print("... Executing {}".format(command))
