@@ -19,13 +19,11 @@ if len(sys.argv) > 2:
         usage()
 else:
     ce.createExes()
+    complist = ce.getReport()
+    vt = VirusTotal(ce.apikey)
+    report = vt.multithread_getScore(complist)
 
-report = {}
-compList = ce.getReport()
-for compiled in compList:
-    vt = VirusTotal(ce.apikey,compList[compiled])
-    report[compiled] = vt.getScore(compList[compiled])
-
-print(report)
+    print(complist)
+    print(report)
      
 
