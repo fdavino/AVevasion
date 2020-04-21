@@ -22,9 +22,10 @@ class VirusTotal:
         url = 'https://www.virustotal.com/vtapi/v2/file/report'
         params = {'apikey': '{}'.format(self.apikey), 'resource': '{}'.format(scanid)}
         response = requests.get(url, params=params)
-        if response.text == "200":
+        print("VirusTotal API response code : {}".format(response.status_code))
+        if response.status_code == 200:
             res = response.json()
-            positive = res['positive']
+            positive = res['positives']
             total = res['total']
         else:
             positive = -1
