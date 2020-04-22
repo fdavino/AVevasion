@@ -1,7 +1,6 @@
 {
     "info":{
         "inputFile":"abs/path/to/file",
-        "apikey":"virus total apikey",
         "programLanguage":"c"    
     },
     "compilers":{
