@@ -20,8 +20,8 @@ if len(sys.argv) > 2:
 else:
     ce.createExes()
     complist = ce.getReport()
-    vt = VirusTotal(ce.apikey)
-    report = vt.multithread_getScore(complist)
+    vt = VirusTotal()
+    report = vt.getScore(complist)
 
     print(complist)
     print(report)

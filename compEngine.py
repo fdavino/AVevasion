@@ -7,7 +7,6 @@ import shutil
 class CompilationEngine:
     
     conf_file = ""
-    apikey = ""
 
     def __init__(self, conf_file):
         self.conf_file = conf_file
@@ -19,10 +18,9 @@ class CompilationEngine:
         with open(self.conf_file) as json_conf:
             data = json.load(json_conf)
             info = dict(data['info'])
-            if not "inputFile" in info or not "apikey" in info:
+            if not "inputFile" in info:
                 print("ERROR: input file not specified")
                 sys.exit(1) 
-            self.apikey = info['apikey']
             compilers = dict(data['compilers'])
 
 #create command string
