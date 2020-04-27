@@ -1,8 +1,4 @@
 {
-    "info":{
-        "inputFile":"abs/path/to/file",
-        "programLanguage":"c"    
-    },
     "compilers":{
         "gcc":{
             "path":"/usr/bin/gcc",

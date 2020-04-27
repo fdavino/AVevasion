@@ -62,12 +62,12 @@ if clear and ce != None:
 elif sc != "" and payload != "":
     m = Manipulator(sc, rate)
     m.generateSource()
-    #ce.createExes()
-    #complist = ce.getReport()
-    #vt = VirusTotal()
-    #report = vt.getScore(complist)
+    ce.createExes()
+    complist = ce.getReport()
+    vt = VirusTotal()
+    report = vt.getScore(complist)
 
-    #print(complist)
-    #print(report)
+    print(complist)
+    print(report)
 else:
     usage()
