@@ -2,9 +2,10 @@ import random
 
 class Manipulator:
 
-	def __init__(self,sc,rate):
+	def __init__(self,sc,rate,payloadf):
 		self.sc = sc
 		self.rate = rate
+		self.payload = payloadf
 
 	def __includeANDdefine(self):
 		toRet = "{}define WIN32_LEAN_AND_MEAN\n".format(chr(35))
@@ -44,7 +45,7 @@ class Manipulator:
 		return toRet
 
 	def __editPayload(self):
-		f = open("payload")
+		f = open(self.payload)
 		content = f.read()
 		toRet = ""
 		byte = ""

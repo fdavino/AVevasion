@@ -60,7 +60,7 @@ if conf != "":
 if clear and ce != None:
     ce.clear()
 elif sc != "" and payload != "":
-    m = Manipulator(sc, rate)
+    m = Manipulator(sc, rate, payload)
     m.generateSource()
     ce.createExes()
     complist = ce.getReport()

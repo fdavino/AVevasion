@@ -86,5 +86,4 @@ class CompilationEngine:
     def __addToReport(self, comp):
         output = [f for f in os.listdir('.'.format(comp)) if not f.endswith(".log")]
         if len(output) != 0:
-            os.chdir(comp)
             self.outlist[comp] = os.path.abspath(output[0])
