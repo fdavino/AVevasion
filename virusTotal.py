@@ -33,6 +33,7 @@ class VirusTotal(CompEvaluator):
             res = response.json()
             return res['scan_id']
         else:
+            print("Response Code :{}".format(response.status_code))
             return -1
         
 #lookup stats of file defined by scanid, return (positive,total)
@@ -52,9 +53,10 @@ class VirusTotal(CompEvaluator):
                 else:
                     return (-1,1)               
             else:
-                return (-1,1)
+                print("Response Code :{}".format(response.status_code))
+                return (-2,1)
         else:
-            return (-1,1)
+            return (-2,1)
             
     def getScore(self, sources):
         l = (1 if isinstance(sources, str) else len(sources)) 
