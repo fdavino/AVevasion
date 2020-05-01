@@ -40,10 +40,10 @@ if clear:
     ce.clear()
 else:
     m.generateSource()
-    #ce.createExes()
-    #complist = ce.getReport()
-    #vt = VirusTotal()
-    #report = vt.getScore(complist)
+    ce.createExes()
+    complist = ce.getReport()
+    vt = VirusTotal()
+    report = vt.getScore(complist)
 
-    #print(complist)
-    #print(report)
+    print(complist)
+    print(report)
