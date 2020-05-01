@@ -59,8 +59,10 @@ class ReqThread(threading.Thread):
                 print("Thread {} sleep {}s and recall".format(self.threadID, tmp - slt))
                 time.sleep(tmp - slt) #sync
                 slt += tmp - slt #sync
+                self.scores[self.threadID] = self.report(scanid)
 
-                self.scores[self.threadID] = self.report(scanid)                
+
+                                
 
 
 

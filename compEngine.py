@@ -12,22 +12,25 @@ class CompilationEngine:
         self.conf_file = conf_file
         self.outlist = {}
 
+    def __checkObF(self, filed, container):
+        if not field in container:
+            print("{} is an obligatory field".format(field))        
+            sys.exit(1)
+
 #execute a list of compilations
     def createExes(self): 
 #parse config file
         with open(self.conf_file) as json_conf:
             data = json.load(json_conf)
+            self.__checkObF("compilers", data)
             compilers = dict(data['compilers'])
 
 #create command string
         if os.path.exists("out.c"):
             for c in compilers:
                 cInExam = compilers[c]
-                if "path" in cInExam:
-                    command = "{} ".format(cInExam["path"])
-                else:
-                    print("ERROR: {} not have a path".format(c))
-                    continue
+                self.__checkObF(path, cInExam)
+                command = "{} ".format(cInExam["path"])
     
                 if "options1" in cInExam:
                     options1 = cInExam['options1']
@@ -73,11 +76,9 @@ class CompilationEngine:
 
     def __addOptions(self, command, options):
         for olist in options:
-                if "name" in olist:
-                    command = "{} {}".format(command,olist['name'])
-                else:
-                    print("ERROR: every option need a name")
-                    continue
+                self.__checkObF("name",olist)
+                command = "{} {}".format(command,olist['name'])
+                
                 if "value" in olist:
                     for val in olist['value']:
                         command = "{} {}".format(command,val)

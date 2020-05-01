@@ -1,4 +1,18 @@
 {
+    "manipulations":{
+        "template":"/abs/path/to/template",
+        "payload":{
+            "path":"/abs/path/to/payload",
+            "specialch":"special character",
+            "placeholder":"--!!--",
+            "rate":0.1
+        },
+        "sub":[{
+            "placeholder":"--!!!--",
+            "str":"special character"
+        }
+        ]
+    },
     "compilers":{
         "gcc":{
             "path":"/usr/bin/gcc",

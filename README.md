@@ -3,22 +3,29 @@
 
 ##Configuration file template
 
-### obligatory		! !
-### optional		- -
-
 ```json
 {
-    "info":{
-        "inputFile":"ABSOLUTE PATH OF INPUT FILE",  #!! (absolute path)
-        "programLanguage":"c"    					#--
+    "manipulations":{
+        "template":"/abs/path/to/template",
+        "payload":{
+            "path":"/abs/path/to/payload",
+            "specialch":"special character",
+            "placeholder":"--!!--",
+            "rate":0.1
+        },
+        "sub":[{
+            "placeholder":"--!!!--",
+            "str":"special character"
+        }
+        ]
     },
     "compilers":{
-        "gcc":{  									##!! (name of compilation test)
-            "path":"/usr/bin/gcc", 					##!! (absolute path)
-            "options1":[{ 							##-- (option befor input file)
-                "name":"-o",						##!!
-                "value":[							##-- 
-                    "hw.out"						## (1 or more)
+        "gcc":{
+            "path":"/usr/bin/gcc",
+            "options1":[{
+                "name":"-o",
+                "value":[
+                    "hw.out"
                     ]
                   },
                 {
@@ -30,10 +37,10 @@
             "options1":[{
                 "name":"-c"
             }],
-            "options2":[{							##-- (option after input file)
-                "name":"-o",						##!!
-                "value":[							##--
-                    "hw2.out"						## (1 or more)
+            "options2":[{
+                "name":"-o",
+                "value":[
+                    "hw2.out"
                     ]                               
                 }
             ]            
@@ -51,5 +58,6 @@
     }
 
 }
-
 ```
+
+
