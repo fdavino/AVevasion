@@ -11,7 +11,8 @@
             "placeholder":"--!!!--",
             "str":"special character"
         }
-        ]
+        ],
+        "out":"mysource.c"
     },
     "compilers":{
         "gcc":{

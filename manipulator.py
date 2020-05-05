@@ -63,6 +63,9 @@ class Manipulator:
 				self.__checkObF("placeholder",s)
 				self.__checkObF("str",s)
 				code = code.replace(s['placeholder'], s['str'])
+		out = "out.c"		
+		if "out" in man:
+			out = man['out']		
 
-		f = open("out.c","w")
+		f = open(out,"w")
 		f.write(code)
