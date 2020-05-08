@@ -8,28 +8,28 @@ class Manipulator:
 
 	def __checkObF(self, field, container):
 		if not field in container:
-			print("{} is an obligatory field".format(field))        
-			sys.exit(1)	
+			raise KeyError("{} is an obligatory field".format(field))
 
 
 	def __editPayload(self,payload,sc,rate):
-		f = open(payload)
-		content = f.read()
-		toRet = ""
-		byte = ""
-		for i in content:
-			if i == '\n' or i == None:
-				continue
-			byte += i
-			if len(byte) == 4:
-				if random.random() < rate:
-					toRet += sc
-				toRet += byte
-				byte = ""
-		return toRet
+		with open(payload) as f:
+			content = f.read()
+			toRet = ""
+			byte = ""
+			for i in content:
+				if i == '\n' or i == None:
+					continue
+				byte += i
+				if len(byte) == 4:
+					if random.random() < rate:
+						toRet += sc
+					toRet += byte
+					byte = ""
+			return toRet
 
 	def generateSource(self):
-		data = json.load(open(self.conf, "r"))
+		with open(self.conf, "r") as cc:
+			data = json.load(cc)
 
 		self.__checkObF("manipulations",data)
 		man = data['manipulations']
@@ -47,15 +47,13 @@ class Manipulator:
 		ph = payload['placeholder']
 		rate = 0.20
 		if "rate" in payload:
-			try:
-				rate = float(payload['rate'])
-				if not(rate >= 0 and rate < 1):
-					raise ValueError
-			except ValueError:
-				print("rate must be float value between (0 and 1]")
-		code = open(template,"r")
-		code = code.read()
-		code = code.replace(ph, self.__editPayload(path,sc,rate))
+			rate = float(payload['rate'])
+			if not(rate >= 0 and rate < 1):
+				raise ValueError("rate must be float value between (0 and 1]")
+				
+		with open(template,"r") as code:		 
+			code = code.read()
+			code = code.replace(ph, self.__editPayload(path,sc,rate))
 
 		if "sub" in man:
 			sub = man['sub']
@@ -67,5 +65,5 @@ class Manipulator:
 		if "out" in man:
 			out = man['out']		
 
-		f = open(out,"w")
-		f.write(code)
+		with open(out,"w") as f:
+			f.write(code)

@@ -12,10 +12,9 @@ class CompilationEngine:
         self.conf_file = conf_file
         self.outlist = {}
 
-    def __checkObF(self, filed, container):
+    def __checkObF(self, field, container):
         if not field in container:
-            print("{} is an obligatory field".format(field))        
-            sys.exit(1)
+        	raise KeyError("{} is an obligatory field".format(field))
 
 #execute a list of compilations
     def createExes(self): 
@@ -23,20 +22,25 @@ class CompilationEngine:
         with open(self.conf_file) as json_conf:
             data = json.load(json_conf)
             self.__checkObF("compilers", data)
-            compilers = dict(data['compilers'])
+            compilers = data['compilers']
+            self.__checkObF("manipulations",data)
+            manipulations = data['manipulations']
+            out = "out.c"
+            if "out" in manipulations:
+            	out = manipulations['out']
 
 #create command string
-        if os.path.exists("out.c"):
+        if os.path.exists(out):
             for c in compilers:
                 cInExam = compilers[c]
-                self.__checkObF(path, cInExam)
+                self.__checkObF("path", cInExam)
                 command = "{} ".format(cInExam["path"])
     
                 if "options1" in cInExam:
                     options1 = cInExam['options1']
                     command = self.__addOptions(command, options1)   
 
-                command = "{} {}".format(command,os.path.abspath("out.c"))
+                command = "{} {}".format(command,os.path.abspath(out))
     
                 if "options2" in cInExam:
                     options2 = cInExam['options2']
@@ -55,8 +59,8 @@ class CompilationEngine:
                 os.chdir("..")
                 print("End {}".format(c))
         else:
-            print("out.c not generated")
-            sys.exit(1)
+        	raise FileNotFoundError("{} not generated".format(out))
+      
 
 #remove all dir and file created by an execution
     def clear(self): 

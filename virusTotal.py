@@ -14,13 +14,12 @@ class VirusTotal(CompEvaluator):
     def __init__(self):
         
         if(not os.path.exists("vtkey.json")):
-            print("vtkey.json \n { \"apikey\": \"APIKEY_VALUE\" } format \n needed")
-            sys.exit(1)
+            raise FileNotFoundError("vtkey.json \n { \"apikey\": \"APIKEY_VALUE\" } format \n needed")
+            
         with open("vtkey.json") as key:
             data = json.load(key)
             if 'apikey' not in data:
-                print("vtkey.json \n { \"apikey\": \"APIKEY_VALUE\" } format \n needed")
-                sys.exit(1)
+                raise KeyError("vtkey.json \n { \"apikey\": \"APIKEY_VALUE\" } format \n needed")
             self.apikey = data['apikey'] 
 
 #upload the file to virustotal, return scan_id
