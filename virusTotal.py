@@ -27,7 +27,9 @@ class VirusTotal(CompEvaluator):
         url = 'https://www.virustotal.com/vtapi/v2/file/scan'
         params = {'apikey': '{}'.format(self.apikey)}
         files = {'file': ('{}'.format(source), open(source, 'rb'))}
+		
         response = requests.post(url, files=files, params=params)
+		
         if response.status_code == 200:
             res = response.json()
             return res['scan_id']

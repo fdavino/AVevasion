@@ -3,6 +3,7 @@ import subprocess
 import os
 import sys
 import shutil
+import time
 
 class CompilationEngine:
     
@@ -19,6 +20,8 @@ class CompilationEngine:
 #execute a list of compilations
     def createExes(self): 
 #parse config file
+        met_start = time.time()
+
         with open(self.conf_file) as json_conf:
             data = json.load(json_conf)
             self.__checkObF("compilers", data)
@@ -54,13 +57,17 @@ class CompilationEngine:
 #compiling
                 os.chdir(c)
                 print("... Executing {}".format(command))
+                comp_start = time.time()
                 subprocess.call(command,shell=True)
                 self.__addToReport(c)
                 os.chdir("..")
-                print("End {}".format(c))
+                print("End {}, time: {}".format(c, time.time() - comp_start))
+
         else:
         	raise FileNotFoundError("{} not generated".format(out))
-      
+        
+        print("Compilations suite time: {}".format(time.time() - met_start))
+
 
 #remove all dir and file created by an execution
     def clear(self): 

@@ -1,5 +1,6 @@
 import random
 import json
+import time
 
 class Manipulator:
 
@@ -28,6 +29,9 @@ class Manipulator:
 			return toRet
 
 	def generateSource(self):
+
+		met_start = time.time()
+
 		with open(self.conf, "r") as cc:
 			data = json.load(cc)
 
@@ -67,3 +71,5 @@ class Manipulator:
 
 		with open(out,"w") as f:
 			f.write(code)
+
+		print("Source generation time: {}s".format(time.time() - met_start))
