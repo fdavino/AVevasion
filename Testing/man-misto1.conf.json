@@ -1,0 +1,21 @@
+{
+    "manipulations":{
+        "template":"/home/ferdinando/Scrivania/Università/Tesi/AVevasion/Testing/template.txt",
+        "payload":{
+            "path":"/home/ferdinando/Scrivania/Università/Tesi/AVevasion/payload",
+            "specialch":"\\xfa",
+            "placeholder":"--!!--",
+            "rate":0.1
+        },
+        "sub":[{
+            "placeholder":"--!!!--",
+            "str":"\\xfa"
+        }
+        ]
+    },
+    "compilers":{
+        "gcc":{
+            "path":"/usr/bin/gcc"            
+        }    
+    }
+}

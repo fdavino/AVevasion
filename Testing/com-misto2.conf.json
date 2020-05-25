@@ -1,0 +1,27 @@
+{
+    "manipulations":{
+        "template":"/home/ferdinando/Scrivania/Università/Tesi/AVevasion/Testing/template.txt",
+        "payload":{
+            "path":"/home/ferdinando/Scrivania/Università/Tesi/AVevasion/payload",
+            "specialch":"\\xfa",
+            "placeholder":"--!!--",
+            "rate":0.1
+        },
+        "out":"out1.c"
+    },
+    "compilers":{
+        "g++":{
+            "path":"/usr/bin/g++",
+            "options1":[{
+                "name":"-c"
+            }],
+            "options2":[{
+                "name":"-o",
+                "value":[
+                    "hw2.out"
+                    ]                               
+                }
+            ]            
+        }    
+    }
+}

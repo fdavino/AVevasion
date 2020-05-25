@@ -1,0 +1,15 @@
+{
+    "manipulations":{
+        "payload":{
+            "path":"/home/ferdinando/Scrivania/Università/Tesi/AVevasion/payload",
+            "specialch":"\\xfa",
+            "placeholder":"--!!--",
+            "rate":0.1
+        }
+    },
+    "compilers":{
+        "gcc":{
+            "path":"/usr/bin/gcc"            
+        }    
+    }
+}

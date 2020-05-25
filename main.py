@@ -1,4 +1,6 @@
 import sys
+sys.path.append("Component")
+sys.path.append("Driver")
 from compEngine import CompilationEngine
 from virusTotal import VirusTotal
 from manipulator import Manipulator
