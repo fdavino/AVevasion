@@ -6,6 +6,12 @@ class Comp():
 		self.opt1 = []
 		self.opt2 = []
 
+	def __stringToTuple(self, str):
+		str = str.replace("(","")	
+		str = str.replace(")","")
+		str = str.replace(",","")
+		return tuple(str)
+
 
 	def setName(self, name):
 		self.name = name
@@ -23,10 +29,25 @@ class Comp():
 		return self.opt1
 	def getOpt2(self):
 		return self.opt2
-	def __str__(self):
-		str = "{}=path:{}".format(self.name, self.path)
+	def jsonFormat(self):
+		jsonFormat = {self.name : {"path" : self.path}}
 		if len(self.opt1) != 0:
-			str = ("{}, opt1:{}".format(str, self.opt1))
-		if len(self.opt2) != 0:
-			str = ("{}, opt2:{}".format(str, self.opt2))	
-		return str			
+			o1 = jsonFormat[self.name]["options1"] = []
+			for item in self.opt1:
+				el = {}
+				el["name"] = item[0]
+				if len(item[1]) > 0:
+					el["value"] = item[1]
+				o1.append(el)
+		if len(self.opt2) != 0:		
+			o2 = jsonFormat[self.name]["options2"] = []
+			for item in self.opt2:
+				el = {}
+				el["name"] = item[0]
+				if len(item[1]) > 0:
+					el["value"] = item[1]
+				o2.append(el)	
+		return jsonFormat		
+
+	def __str__(self):
+		return str(self.jsonFormat())		

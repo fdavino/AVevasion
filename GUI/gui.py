@@ -53,6 +53,7 @@ class Gui():
 	@staticmethod
 	def remFromListSelected(l):
 		if not l.curselection():
+			messagebox.showinfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
 			return
 		Gui.remFromList(l, l.curselection()[0])	
 
@@ -74,7 +75,7 @@ class Gui():
 		entryStr = tk.Entry(newSub)
 		entryArr.append(entryStr)
 		btnSubmit = tk.Button(newSub, pady = 5, text = "Crea",
-									 command = lambda:Ctrl.checkSub(newSub, entryArr, list))
+									 command = lambda:self.ctrl.checkSub(newSub, entryArr, list))
 
 		labelPl.grid(row = 0, column = 0)
 		entryPl.grid(row = 0, column = 1)
@@ -85,21 +86,22 @@ class Gui():
 	def __updateComp(self, list):
 		
 		if not list.curselection():
+			messagebox.showinfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
 			return
 
 		index = list.curselection()[0]	
 
 		entryArr = []
-		listList = []
-		entryOpt = []	
+		entryOpt = []
+		listList = [] 	
 
 		newComp = tk.Toplevel(self.window)
 		newComp.geometry("550x450+600+350")
 		newComp.title("Modifica Compilazione")
-		labelName = tk.Label(newComp, text = "Nome test", pady = 5)
+		labelName = tk.Label(newComp, text = "Nome test*", pady = 5)
 		entryName = tk.Entry(newComp)
 		entryArr.append(entryName)#
-		labelPath = tk.Label(newComp, text = "Path compilatore", pady = 5)
+		labelPath = tk.Label(newComp, text = "Path compilatore*", pady = 5)
 		entryPath = tk.Entry(newComp)
 		entryArr.append(entryPath)#
 		btnPath = tk.Button(newComp, text = "Sfoglia", command = lambda:Ctrl.openfile(entryPath))
@@ -118,13 +120,13 @@ class Gui():
 		labelSeparator = tk.Label(newComp, text = "Separatore", pady = 5)
 		entrySeparator = tk.Entry(newComp, width = 5)
 		entryOpt.append(entrySeparator)
-		btnAddOpt1 = tk.Button(newComp, text = "Aggiungi a lista P.", command = lambda:Ctrl.checkOption(entryOpt, listOpt1))
-		btnAddOpt2 = tk.Button(newComp, text = "Aggiungi a lista S.", command = lambda:Ctrl.checkOption(entryOpt, listOpt2)) 
-		btnRemOpt1 = tk.Button(newComp, text = "Rimuovi da lista P.", command = lambda:Gui.remFromListSelected(listOpt1))
-		btnRemOpt2 = tk.Button(newComp, text = "Rimuovi da lista S.", command = lambda:Gui.remFromListSelected(listOpt2))
+		btnAddOpt1 = tk.Button(newComp, text = "Aggiungi a lista P.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
+		btnAddOpt2 = tk.Button(newComp, text = "Aggiungi a lista S.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
+		btnRemOpt1 = tk.Button(newComp, text = "Rimuovi da lista P.", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
+		btnRemOpt2 = tk.Button(newComp, text = "Rimuovi da lista S.", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
 		btnSubmit = tk.Button(newComp, text = "Aggiorna test di compilazione", 
 										pady = 10,
-										command = lambda:self.ctrl.updateComp(newComp, entryArr, listList, list, index))
+										command = lambda:self.ctrl.updateComp(newComp, entryArr, list, index))
 
 		self.ctrl.fillCompField(entryArr, listList, list)
 
@@ -151,25 +153,22 @@ class Gui():
 
 	def __newComp(self, list):
 		entryArr = []
-		listList = []
 		entryOpt = []
 
 		newComp = tk.Toplevel(self.window)
 		newComp.geometry("550x450+600+350")
 		newComp.title("Aggiungi Compilazione")
-		labelName = tk.Label(newComp, text = "Nome test", pady = 5)
+		labelName = tk.Label(newComp, text = "Nome test*", pady = 5)
 		entryName = tk.Entry(newComp)
 		entryArr.append(entryName)#
-		labelPath = tk.Label(newComp, text = "Path compilatore", pady = 5)
+		labelPath = tk.Label(newComp, text = "Path compilatore*", pady = 5)
 		entryPath = tk.Entry(newComp)
 		entryArr.append(entryPath)#
 		btnPath = tk.Button(newComp, text = "Sfoglia", command = lambda:Ctrl.openfile(entryPath))
 		labelOpt1 = tk.Label(newComp, text = "Opzioni Precedenti")
 		listOpt1 = tk.Listbox(newComp)
-		listList.append(listOpt1)#
 		labelOpt2 = tk.Label(newComp, text = "Opzioni Successive")
 		listOpt2 = tk.Listbox(newComp)
-		listList.append(listOpt2)#
 		labelOptName = tk.Label(newComp, text = "Nome Opzione", pady = 5)
 		entryOptName = tk.Entry(newComp)
 		entryOpt.append(entryOptName)
@@ -179,13 +178,13 @@ class Gui():
 		labelSeparator = tk.Label(newComp, text = "Separatore", pady = 5)
 		entrySeparator = tk.Entry(newComp, width = 5)
 		entryOpt.append(entrySeparator)
-		btnAddOpt1 = tk.Button(newComp, text = "Aggiungi a lista P.", command = lambda:Ctrl.checkOption(entryOpt, listOpt1))
-		btnAddOpt2 = tk.Button(newComp, text = "Aggiungi a lista S.", command = lambda:Ctrl.checkOption(entryOpt, listOpt2)) 
-		btnRemOpt1 = tk.Button(newComp, text = "Rimuovi da lista P.", command = lambda:Gui.remFromListSelected(listOpt1))
-		btnRemOpt2 = tk.Button(newComp, text = "Rimuovi da lista S.", command = lambda:Gui.remFromListSelected(listOpt2))
+		btnAddOpt1 = tk.Button(newComp, text = "Aggiungi a lista P.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
+		btnAddOpt2 = tk.Button(newComp, text = "Aggiungi a lista S.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
+		btnRemOpt1 = tk.Button(newComp, text = "Rimuovi da lista P.", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
+		btnRemOpt2 = tk.Button(newComp, text = "Rimuovi da lista S.", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
 		btnSubmit = tk.Button(newComp, text = "Aggiungi test di compilazione", 
 										pady = 10,
-										command = lambda:self.ctrl.checkComp(newComp, entryArr, listList, list))
+										command = lambda:self.ctrl.checkComp(newComp, entryArr, list))
 
 		labelName.grid(row = 0, column = 0)
 		entryName.grid(row = 0, column = 1)
@@ -251,18 +250,18 @@ class Gui():
 
 		left = tk.Frame(self.second)
 		labelMan = tk.Label(left, text = "Manipulations", font="Helvetica 13 bold")
-		labelTemp = tk.Label(left, text = "Template path", pady = 5)
+		labelTemp = tk.Label(left, text = "Template path*", pady = 5)
 		entryTemp = tk.Entry(left)
 		es.append(entryTemp)
 		btnSfoglia = tk.Button(left, text = "Sfoglia", command = lambda:Ctrl.openfile(entryTemp))
-		labelPPath = tk.Label(left, text = "Payload path", pady = 5)
+		labelPPath = tk.Label(left, text = "Payload path*", pady = 5)
 		entryPPath = tk.Entry(left)
 		es.append(entryPPath)
 		btnSfogliaPPath = tk.Button(left, text = "Sfoglia", command = lambda:Ctrl.openfile(entryPPath))
-		labelSC = tk.Label(left, text = "Carattere spaciale", pady = 5)
+		labelSC = tk.Label(left, text = "Carattere spaciale*", pady = 5)
 		entrySC = tk.Entry(left)
 		es.append(entrySC)
-		labelPlace = tk.Label(left, text = "Segnaposto payload", pady = 5)
+		labelPlace = tk.Label(left, text = "Segnaposto payload*", pady = 5)
 		entryPlace = tk.Entry(left)
 		es.append(entryPlace)
 		labelRate = tk.Label(left, text = "Frequenza", pady = 5)
@@ -275,7 +274,10 @@ class Gui():
 		listSub = tk.Listbox(left)
 		doppioBtn = tk.Frame(left)
 		btnAddSub = tk.Button(doppioBtn, text = "Aggiungi Sostituzione", command = lambda:self.__newSub(listSub))
-		btnRemSub = tk.Button(doppioBtn, text = "Rimuovi", command = lambda:Gui.remFromListSelected(listSub))	
+		btnRemSub = tk.Button(doppioBtn, text = "Rimuovi", command = lambda:self.ctrl.remFromListSub(listSub))	
+		labelSavedName = tk.Label(left, text = "Nome file di configurazione", pady = 5)
+		entrySavedName = tk.Entry(left)
+		es.append(entrySavedName)
 
 		btnS = tk.Button(left, text = "Salva Configurazione", font="Helvetica 15 bold", command = lambda:self.ctrl.checkConf(es, listSub))
 
@@ -309,7 +311,9 @@ class Gui():
 		btnAddSub.pack()
 		btnRemSub.pack()
 
-		btnS.grid(row = 8, column = 0)
+		labelSavedName.grid(row = 8, column = 0)
+		entrySavedName.grid(row = 8, column = 1)
+		btnS.grid(row = 9, column = 0)
 
 	def __buildRight(self):
 		right = tk.Frame(self.second)

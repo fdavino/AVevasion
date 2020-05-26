@@ -43,4 +43,23 @@ class Conf():
 	def addToComp(self, comp):
 		self.comps.append(comp)
 	def getComp(self):
-		return self.comps									
+		return self.comps
+
+	def __str__(self):
+		jsonFormat = {"manipulations" : {"template":self.templatePath}}
+		jsonFormat["manipulations"]["payload"] = {"path":self.payloadPath, "specialch":self.specialCh, "placeholder":self.placeholderPayload}
+		if(self.freq != ""):
+			jsonFormat["manipulations"]["payload"]["rate"] = self.freq
+		if len(self.subs) > 0:
+			jsonFormat["manipulations"]["sub"] = []
+			for s in self.subs:
+				jsonFormat["manipulations"]["sub"].append({"placeholder":s[0], "str":s[1]})
+		if len(self.out) > 0:
+			jsonFormat["manipulations"]["out"] = self.out
+		if len(self.comps) > 0:
+			jsonFormat["compilers"] = {}
+			for c in self.comps:
+				dic = c.jsonFormat()
+				for k in dic:
+					jsonFormat["compilers"][k] = dic.get(k)
+		return str(jsonFormat)				 												
