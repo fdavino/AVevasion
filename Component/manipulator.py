@@ -49,7 +49,7 @@ class Manipulator:
 		path = payload['path']
 		sc = payload['specialch']
 		ph = payload['placeholder']
-		rate = 0.20
+		rate = 0.60
 		if "rate" in payload:
 			rate = float(payload['rate'])
 			if not(rate >= 0 and rate < 1):
