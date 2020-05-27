@@ -1,8 +1,10 @@
+from ctrl import Ctrl
+
 import tkinter as tk
 from tkinter import filedialog
+from tkinter import messagebox
+from tkinter.ttk import *
 from tkinter import *
-
-from ctrl import Ctrl
 
 class Gui():
 
@@ -35,7 +37,14 @@ class Gui():
 
 		self.tool.grid(row = 0, column = 0)
 		self.conf.grid(row = 0, column = 1)
-	
+
+	@staticmethod
+	def alertErr(title, message):
+		messagebox.showerror(title, message)
+
+	@staticmethod
+	def alertInfo(title, message):
+		messagebox.showinfo(title, message)
 
 	@staticmethod
 	def exploreFile():
@@ -213,7 +222,7 @@ class Gui():
 		else:
 			self.focus = 0	
 
-		self.window.geometry("600x250+300+200")
+		self.window.geometry("600x350+300+200")
 		if self.second != None:
 			self.second.pack_forget()
 
@@ -221,12 +230,16 @@ class Gui():
 		self.home = tk.Frame(self.window)
 		path = tk.Entry(self.home)
 		sfoglia = tk.Button(self.home, text = "Sfoglia",  command = lambda:Ctrl.openfile(path))
-		run = tk.Button(self.home, text = "Run")
+		progress = Progressbar(self.home, orient = HORIZONTAL, length = 100, mode = "determinate")
+		run = tk.Button(self.home, text = "Run", command = lambda:Ctrl.checkRun(path, progress, self.window))
+		clear = tk.Button(self.home, text = "Clear", command = lambda:Ctrl.checkClear(path, progress, self.window))
 		#
 		self.home.pack(fill = BOTH, expand = 1, pady = 50)
 		path.pack(pady = 5, padx = 20, fill= X)
 		sfoglia.pack(pady = 5)
-		run.pack(pady = 5, ipady = 5, fill = X)
+		run.pack(pady = 5, fill = X)
+		clear.pack(pady = 5, fill = X)
+		progress.pack(pady = 5, padx = 20, fill = X)
 
 	def __setConf(self):
 		if self.focus == 1:
@@ -243,7 +256,6 @@ class Gui():
 		self.second.pack(fill = BOTH, expand = 1, pady = 25)
 		self.__buildLeft()
 		self.__buildRight()
-
 
 	def __buildLeft(self):
 		es = []
