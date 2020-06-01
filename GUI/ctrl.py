@@ -69,6 +69,8 @@ class Ctrl():
                 i+=1
             Gui.alertInfo("Result", str)
         except Exception as err:
+            p['value'] = 0
+            w.update_idletasks()
             Gui.alertErr("Error", err)
 
     @staticmethod
@@ -85,6 +87,8 @@ class Ctrl():
             w.update_idletasks()
             Gui.alertInfo("Info", "Pulizia completata")
         except Exception as err:
+            p['value'] = 0
+            w.update_idletasks()
             Gui.alertErr("Error", err)                      
 
 
