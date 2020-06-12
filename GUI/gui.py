@@ -62,7 +62,7 @@ class Gui():
 	@staticmethod
 	def remFromListSelected(l):
 		if not l.curselection():
-			messagebox.showinfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
+			messagebox.showinfo("Info", "Select an element from the list to delete it")
 			return
 		Gui.remFromList(l, l.curselection()[0])	
 
@@ -76,14 +76,14 @@ class Gui():
 
 		newSub = tk.Toplevel(self.window)
 		newSub.geometry("300x100+700+500")
-		newSub.title("Aggiungi Sostituzione")
-		labelPl = tk.Label(newSub, text = "Segnaposto", pady = 5)
+		newSub.title("Add Substitution")
+		labelPl = tk.Label(newSub, text = "Placeholder", pady = 5)
 		entryPl = tk.Entry(newSub)
 		entryArr.append(entryPl)
-		labelStr = tk.Label(newSub, text = "Stringa", pady = 5)
+		labelStr = tk.Label(newSub, text = "String", pady = 5)
 		entryStr = tk.Entry(newSub)
 		entryArr.append(entryStr)
-		btnSubmit = tk.Button(newSub, pady = 5, text = "Crea",
+		btnSubmit = tk.Button(newSub, pady = 5, text = "Create",
 									 command = lambda:self.ctrl.checkSub(newSub, entryArr, list))
 
 		labelPl.grid(row = 0, column = 0)
@@ -95,7 +95,7 @@ class Gui():
 	def __updateComp(self, list):
 		
 		if not list.curselection():
-			messagebox.showinfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
+			messagebox.showinfo("Info", "Select an element from the list to delete it")
 			return
 
 		index = list.curselection()[0]	
@@ -106,34 +106,34 @@ class Gui():
 
 		newComp = tk.Toplevel(self.window)
 		newComp.geometry("550x450+600+350")
-		newComp.title("Modifica Compilazione")
-		labelName = tk.Label(newComp, text = "Nome test*", pady = 5)
+		newComp.title("Edit Compilation")
+		labelName = tk.Label(newComp, text = "Test name*", pady = 5)
 		entryName = tk.Entry(newComp)
 		entryArr.append(entryName)#
-		labelPath = tk.Label(newComp, text = "Path compilatore*", pady = 5)
+		labelPath = tk.Label(newComp, text = "Compiler Path*", pady = 5)
 		entryPath = tk.Entry(newComp)
 		entryArr.append(entryPath)#
-		btnPath = tk.Button(newComp, text = "Sfoglia", command = lambda:Ctrl.openfile(entryPath))
-		labelOpt1 = tk.Label(newComp, text = "Opzioni Precedenti")
+		btnPath = tk.Button(newComp, text = "Search", command = lambda:Ctrl.openfile(entryPath))
+		labelOpt1 = tk.Label(newComp, text = "First Options")
 		listOpt1 = tk.Listbox(newComp)
 		listList.append(listOpt1)#
-		labelOpt2 = tk.Label(newComp, text = "Opzioni Successive")
+		labelOpt2 = tk.Label(newComp, text = "Last Options")
 		listOpt2 = tk.Listbox(newComp)
 		listList.append(listOpt2)#
-		labelOptName = tk.Label(newComp, text = "Nome Opzione", pady = 5)
+		labelOptName = tk.Label(newComp, text = "Option name", pady = 5)
 		entryOptName = tk.Entry(newComp)
 		entryOpt.append(entryOptName)
-		labelOptValue = tk.Label(newComp, text = "Valori", pady = 5)
+		labelOptValue = tk.Label(newComp, text = "Values", pady = 5)
 		entryOptValue = tk.Entry(newComp)
 		entryOpt.append(entryOptValue)
-		labelSeparator = tk.Label(newComp, text = "Separatore", pady = 5)
+		labelSeparator = tk.Label(newComp, text = "Separetor", pady = 5)
 		entrySeparator = tk.Entry(newComp, width = 5)
 		entryOpt.append(entrySeparator)
-		btnAddOpt1 = tk.Button(newComp, text = "Aggiungi a lista P.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
-		btnAddOpt2 = tk.Button(newComp, text = "Aggiungi a lista S.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
-		btnRemOpt1 = tk.Button(newComp, text = "Rimuovi da lista P.", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
-		btnRemOpt2 = tk.Button(newComp, text = "Rimuovi da lista S.", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
-		btnSubmit = tk.Button(newComp, text = "Aggiorna test di compilazione", 
+		btnAddOpt1 = tk.Button(newComp, text = "Add to First Options list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
+		btnAddOpt2 = tk.Button(newComp, text = "Add to Last Options list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
+		btnRemOpt1 = tk.Button(newComp, text = "Remove from First Options list", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
+		btnRemOpt2 = tk.Button(newComp, text = "Remove from Last Options list", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
+		btnSubmit = tk.Button(newComp, text = "Update Compilation Test", 
 										pady = 10,
 										command = lambda:self.ctrl.updateComp(newComp, entryArr, list, index))
 
@@ -166,32 +166,32 @@ class Gui():
 
 		newComp = tk.Toplevel(self.window)
 		newComp.geometry("550x450+600+350")
-		newComp.title("Aggiungi Compilazione")
-		labelName = tk.Label(newComp, text = "Nome test*", pady = 5)
+		newComp.title("Add Compilation Test")
+		labelName = tk.Label(newComp, text = "Test Name*", pady = 5)
 		entryName = tk.Entry(newComp)
 		entryArr.append(entryName)#
-		labelPath = tk.Label(newComp, text = "Path compilatore*", pady = 5)
+		labelPath = tk.Label(newComp, text = "Compiler Path*", pady = 5)
 		entryPath = tk.Entry(newComp)
 		entryArr.append(entryPath)#
-		btnPath = tk.Button(newComp, text = "Sfoglia", command = lambda:Ctrl.openfile(entryPath))
-		labelOpt1 = tk.Label(newComp, text = "Opzioni Precedenti")
+		btnPath = tk.Button(newComp, text = "Search", command = lambda:Ctrl.openfile(entryPath))
+		labelOpt1 = tk.Label(newComp, text = "First Options")
 		listOpt1 = tk.Listbox(newComp)
-		labelOpt2 = tk.Label(newComp, text = "Opzioni Successive")
+		labelOpt2 = tk.Label(newComp, text = "Last Options")
 		listOpt2 = tk.Listbox(newComp)
-		labelOptName = tk.Label(newComp, text = "Nome Opzione", pady = 5)
+		labelOptName = tk.Label(newComp, text = "Option Name", pady = 5)
 		entryOptName = tk.Entry(newComp)
 		entryOpt.append(entryOptName)
-		labelOptValue = tk.Label(newComp, text = "Valori", pady = 5)
+		labelOptValue = tk.Label(newComp, text = "Value", pady = 5)
 		entryOptValue = tk.Entry(newComp)
 		entryOpt.append(entryOptValue)
-		labelSeparator = tk.Label(newComp, text = "Separatore", pady = 5)
+		labelSeparator = tk.Label(newComp, text = "Separetor", pady = 5)
 		entrySeparator = tk.Entry(newComp, width = 5)
 		entryOpt.append(entrySeparator)
-		btnAddOpt1 = tk.Button(newComp, text = "Aggiungi a lista P.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
-		btnAddOpt2 = tk.Button(newComp, text = "Aggiungi a lista S.", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
-		btnRemOpt1 = tk.Button(newComp, text = "Rimuovi da lista P.", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
-		btnRemOpt2 = tk.Button(newComp, text = "Rimuovi da lista S.", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
-		btnSubmit = tk.Button(newComp, text = "Aggiungi test di compilazione", 
+		btnAddOpt1 = tk.Button(newComp, text = "Add to First Option list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
+		btnAddOpt2 = tk.Button(newComp, text = "Add to Last Option list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
+		btnRemOpt1 = tk.Button(newComp, text = "Remove from First Option list", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
+		btnRemOpt2 = tk.Button(newComp, text = "Remove from Last Option list", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
+		btnSubmit = tk.Button(newComp, text = "Add Compilation Test", 
 										pady = 10,
 										command = lambda:self.ctrl.checkComp(newComp, entryArr, list))
 
@@ -229,7 +229,7 @@ class Gui():
 		#
 		self.home = tk.Frame(self.window)
 		path = tk.Entry(self.home)
-		sfoglia = tk.Button(self.home, text = "Sfoglia",  command = lambda:Ctrl.openfile(path))
+		sfoglia = tk.Button(self.home, text = "Search",  command = lambda:Ctrl.openfile(path))
 		progress = Progressbar(self.home, orient = HORIZONTAL, length = 100, mode = "determinate")
 		run = tk.Button(self.home, text = "Run", command = lambda:Ctrl.checkRun(path, progress, self.window))
 		clear = tk.Button(self.home, text = "Clear", command = lambda:Ctrl.checkClear(path, progress, self.window))
@@ -262,36 +262,36 @@ class Gui():
 
 		left = tk.Frame(self.second)
 		labelMan = tk.Label(left, text = "Manipulations", font="Helvetica 13 bold")
-		labelTemp = tk.Label(left, text = "Template path*", pady = 5)
+		labelTemp = tk.Label(left, text = "Template Path*", pady = 5)
 		entryTemp = tk.Entry(left)
 		es.append(entryTemp)
-		btnSfoglia = tk.Button(left, text = "Sfoglia", command = lambda:Ctrl.openfile(entryTemp))
-		labelPPath = tk.Label(left, text = "Payload path*", pady = 5)
+		btnSfoglia = tk.Button(left, text = "Search", command = lambda:Ctrl.openfile(entryTemp))
+		labelPPath = tk.Label(left, text = "Payload Path*", pady = 5)
 		entryPPath = tk.Entry(left)
 		es.append(entryPPath)
-		btnSfogliaPPath = tk.Button(left, text = "Sfoglia", command = lambda:Ctrl.openfile(entryPPath))
-		labelSC = tk.Label(left, text = "Carattere spaciale*", pady = 5)
+		btnSfogliaPPath = tk.Button(left, text = "Search", command = lambda:Ctrl.openfile(entryPPath))
+		labelSC = tk.Label(left, text = "Special char*", pady = 5)
 		entrySC = tk.Entry(left)
 		es.append(entrySC)
-		labelPlace = tk.Label(left, text = "Segnaposto payload*", pady = 5)
+		labelPlace = tk.Label(left, text = "Payload Placeholder*", pady = 5)
 		entryPlace = tk.Entry(left)
 		es.append(entryPlace)
-		labelRate = tk.Label(left, text = "Frequenza", pady = 5)
+		labelRate = tk.Label(left, text = "Rate", pady = 5)
 		entryRate = tk.Entry(left)
 		es.append(entryRate)
-		labelOut = tk.Label(left, text = "Nome output", pady = 5)
+		labelOut = tk.Label(left, text = "Output Name", pady = 5)
 		entryOut = tk.Entry(left)
 		es.append(entryOut)
-		labelSub = tk.Label(left, text = "Sostituzioni", pady = 5)
+		labelSub = tk.Label(left, text = "Substitutions", pady = 5)
 		listSub = tk.Listbox(left)
 		doppioBtn = tk.Frame(left)
-		btnAddSub = tk.Button(doppioBtn, text = "Aggiungi Sostituzione", command = lambda:self.__newSub(listSub))
-		btnRemSub = tk.Button(doppioBtn, text = "Rimuovi", command = lambda:self.ctrl.remFromListSub(listSub))	
-		labelSavedName = tk.Label(left, text = "Nome file di configurazione", pady = 5)
+		btnAddSub = tk.Button(doppioBtn, text = "Add Substitution", command = lambda:self.__newSub(listSub))
+		btnRemSub = tk.Button(doppioBtn, text = "Remove", command = lambda:self.ctrl.remFromListSub(listSub))	
+		labelSavedName = tk.Label(left, text = "Configuration File Name", pady = 5)
 		entrySavedName = tk.Entry(left)
 		es.append(entrySavedName)
 
-		btnS = tk.Button(left, text = "Salva Configurazione", font="Helvetica 15 bold", command = lambda:self.ctrl.checkConf(es, listSub))
+		btnS = tk.Button(left, text = "Save Configuration", font="Helvetica 15 bold", command = lambda:self.ctrl.checkConf(es, listSub))
 
 		left.pack(side = LEFT)
 		labelMan.grid(row = 0, column = 0)
@@ -330,12 +330,12 @@ class Gui():
 	def __buildRight(self):
 		right = tk.Frame(self.second)
 		labelComp = tk.Label(right, text = "Compilations", font="Helvetica 13 bold")
-		labelCompList = tk.Label(right, text = "Compilazioni")
+		labelCompList = tk.Label(right, text = "Compilations")
 		listCompTest = tk.Listbox(right, height=20, width = 50)
 		triploBtn = tk.Frame(right)
-		btnAddComp = tk.Button(triploBtn, text = "Aggiungi Compilazione", command = lambda:self.__newComp(listCompTest))
-		btnRemComp = tk.Button(triploBtn, text = "Rimuovi Compilazione", command = lambda:self.ctrl.remFromListComp(listCompTest))
-		btnEditComp = tk.Button(triploBtn, text = "Modifica Compilazione", command = lambda:self.__updateComp(listCompTest))
+		btnAddComp = tk.Button(triploBtn, text = "Add Compilation", command = lambda:self.__newComp(listCompTest))
+		btnRemComp = tk.Button(triploBtn, text = "Remove Compilation", command = lambda:self.ctrl.remFromListComp(listCompTest))
+		btnEditComp = tk.Button(triploBtn, text = "Edit Compilation", command = lambda:self.__updateComp(listCompTest))
 
 		right.pack(side = RIGHT)
 		labelComp.grid(row = 0, column = 0)
