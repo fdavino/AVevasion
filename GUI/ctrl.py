@@ -40,7 +40,7 @@ class Ctrl():
     def checkRun(e, p, w):
         from gui import Gui
         if not os.path.exists(e.get()):
-            Gui.alertErr("Error", "File di configurazione non trovato")
+            Gui.alertErr("Error", "Configuration file not found", w)
             return
         try:
             conf = e.get() 
@@ -67,17 +67,17 @@ class Ctrl():
             for x,y in complist.items():
                 str += "<{} : {}>\n".format(x,report[i])
                 i+=1
-            Gui.alertInfo("Result", str)
+            Gui.alertInfo("Result", str, w)
         except Exception as err:
             p['value'] = 0
             w.update_idletasks()
-            Gui.alertErr("Error", err)
+            Gui.alertErr("Error", err, w)
 
     @staticmethod
     def checkClear(e, p, w):
         from gui import Gui
         if not os.path.exists(e.get()):
-            Gui.alertErr("Error", "File di configurazione non trovato")
+            Gui.alertErr("Error", "Configuration file not found", w)
             return
         try: 
             conf = e.get()   
@@ -85,17 +85,17 @@ class Ctrl():
             ce.clear()
             p['value'] = 100
             w.update_idletasks()
-            Gui.alertInfo("Info", "Pulizia completata")
+            Gui.alertInfo("Info", "Cleaning completed", w)
         except Exception as err:
             p['value'] = 0
             w.update_idletasks()
-            Gui.alertErr("Error", err)                      
+            Gui.alertErr("Error", err, w)                      
 
 
     def remFromListComp(self,l):
         from gui import Gui
         if not l.curselection():
-            Gui.alertInfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
+            Gui.alertInfo("Info", "Select an element to delete it")
             return
         del(self.listOfComp[l.curselection()[0]])
         Gui.remFromListSelected(l)
@@ -103,15 +103,15 @@ class Ctrl():
     def remFromListSub(self,l):
         from gui import Gui
         if not l.curselection():
-            Gui.alertInfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
+            Gui.alertInfo("Info", "Select an element to delete it")
             return
         del(self.listOfSub[l.curselection()[0]])
         Gui.remFromListSelected(l)
 
-    def remFromListOpt(self,l, index):
+    def remFromListOpt(self,l, index, root):
         from gui import Gui
         if not l.curselection():
-            Gui.alertInfo("Info", "Seleziona un elemento dalla lista per eliminarlo")
+            Gui.alertInfo("Info", "Select an element to delete it", root)
             return
         if index == 0   :
             del(self.tmpOpt1[l.curselection()[0]])
@@ -141,9 +141,9 @@ class Ctrl():
             Gui.addElToList(list, (e[0].get(),e[1].get()))
             Gui.destroyTop(top)
         else:
-            Gui.alertErr("Error", "Entrambi i campi sono obbligatori")
+            Gui.alertErr("Error", "Both fields are obligatory", top)
 
-    def checkOption(self, e, l, index):
+    def checkOption(self, e, l, index, root):
         from gui import Gui
         if len(e[0].get()) > 0:
             t = None
@@ -162,7 +162,7 @@ class Ctrl():
             else:
                 self.tmpOpt2.append(t)
         else:
-            Gui.alertErr("Error", "Il nome dell'opzione è obbligatorio")
+            Gui.alertErr("Error", "Option name is obligatory", root)
 
 
         Ctrl.emptyText(e[0])
@@ -170,9 +170,9 @@ class Ctrl():
         Ctrl.emptyText(e[2])
 
     def checkComp(self, top, e, list):
+        from gui import Gui
         comp = Comp()
         if len(e[0].get()) != 0 and len(e[1].get()) != 0:
-            from gui import Gui
             comp.setName(e[0].get())
             comp.setPath(e[1].get())
 
@@ -187,17 +187,19 @@ class Ctrl():
             self.listOfComp.append(comp)        
             Gui.addElToList(list, str(comp))
             Gui.destroyTop(top)
+        else:
+            Gui.alertErr("Error", "Fill obligatory fields", top)
 
     def checkConf(self, e, l):
         from gui import Gui
         if len(e[0].get()) == 0 or len(e[1].get()) == 0 or len(e[2].get()) == 0 or len(e[3].get()) == 0:
-            Gui.alertErr("Error", "Compila i campi obbligatori")
+            Gui.alertErr("Error", "Fill obligatory fields")
             return
         if len(self.listOfComp) == 0:
-            Gui.alertErr("Error", "Inserisci almeno un test di compilazione")
+            Gui.alertErr("Error", "Insert at least a compilation test")
             return
         if len(e[6].get()) == 0:
-            Gui.alertErr("Error", "Inserisci il nome con il quale salvare il file di configurazione")
+            Gui.alertErr("Error", "Insert configuration file name")
             return  
 
         self.conf.setTemplatePath(e[0].get())
@@ -208,11 +210,11 @@ class Ctrl():
             try:
                 rate = float(e[4].get())
                 if not(rate >= 0 and rate < 1):
-                    Gui.alertErr("Error", "La frequenza deve essere un decimale compreso tra (0,1]")
+                    Gui.alertErr("Error", "The rate must be a decimal between (0,1]")
                     return
                 self.conf.setFreq(rate)
             except ValueError:
-                Gui.alertErr("Error", "La frequenza deve essere un decimale compreso tra (0,1]")
+                Gui.alertErr("Error", "The rate must be a decimal between (0,1]")
                 return
 
         if len(e[5].get()) != 0:
@@ -224,7 +226,7 @@ class Ctrl():
             tmp = str(self.conf)
             tmp = tmp.replace("\'", "\"")
             f.write(tmp)
-            Gui.alertErr("Info", "file correttamente salvato : {}".format(e[6].get()))          
+            Gui.alertErr("Info", "File saved : {}".format(e[6].get()))          
 
     def updateComp(self, top, e, list, index):
         comp = Comp()

@@ -39,12 +39,18 @@ class Gui():
 		self.conf.grid(row = 0, column = 1)
 
 	@staticmethod
-	def alertErr(title, message):
-		messagebox.showerror(title, message)
+	def alertErr(title, message, parent = None):
+		if parent == None:
+			messagebox.showerror(title, message)
+		else:
+			messagebox.showerror(title, message, parent = parent)
 
 	@staticmethod
-	def alertInfo(title, message):
-		messagebox.showinfo(title, message)
+	def alertInfo(title, message, parent = None):
+		if parent == None:
+			messagebox.showinfo(title, message)
+		else:	
+			messagebox.showinfo(title, message, parent = parent)
 
 	@staticmethod
 	def exploreFile():
@@ -129,10 +135,10 @@ class Gui():
 		labelSeparator = tk.Label(newComp, text = "Separetor", pady = 5)
 		entrySeparator = tk.Entry(newComp, width = 5)
 		entryOpt.append(entrySeparator)
-		btnAddOpt1 = tk.Button(newComp, text = "Add to First Options list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
-		btnAddOpt2 = tk.Button(newComp, text = "Add to Last Options list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
-		btnRemOpt1 = tk.Button(newComp, text = "Remove from First Options list", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
-		btnRemOpt2 = tk.Button(newComp, text = "Remove from Last Options list", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
+		btnAddOpt1 = tk.Button(newComp, text = "Add to First Options list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0, newComp))
+		btnAddOpt2 = tk.Button(newComp, text = "Add to Last Options list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1, newComp)) 
+		btnRemOpt1 = tk.Button(newComp, text = "Remove from First Options list", command = lambda:self.ctrl.remFromListOpt(listOpt1, 0, newComp))
+		btnRemOpt2 = tk.Button(newComp, text = "Remove from Last Options list", command = lambda:self.ctrl.remFromListOpt(listOpt2, 1, newComp))
 		btnSubmit = tk.Button(newComp, text = "Update Compilation Test", 
 										pady = 10,
 										command = lambda:self.ctrl.updateComp(newComp, entryArr, list, index))
@@ -165,7 +171,7 @@ class Gui():
 		entryOpt = []
 
 		newComp = tk.Toplevel(self.window)
-		newComp.geometry("550x450+600+350")
+		newComp.geometry("600x450+600+300")
 		newComp.title("Add Compilation Test")
 		labelName = tk.Label(newComp, text = "Test Name*", pady = 5)
 		entryName = tk.Entry(newComp)
@@ -187,10 +193,10 @@ class Gui():
 		labelSeparator = tk.Label(newComp, text = "Separetor", pady = 5)
 		entrySeparator = tk.Entry(newComp, width = 5)
 		entryOpt.append(entrySeparator)
-		btnAddOpt1 = tk.Button(newComp, text = "Add to First Option list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0))
-		btnAddOpt2 = tk.Button(newComp, text = "Add to Last Option list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1)) 
-		btnRemOpt1 = tk.Button(newComp, text = "Remove from First Option list", command = lambda:self.ctrl.remFromListOpt(listOpt1,0))
-		btnRemOpt2 = tk.Button(newComp, text = "Remove from Last Option list", command = lambda:self.ctrl.remFromListOpt(listOpt2,1))
+		btnAddOpt1 = tk.Button(newComp, text = "Add to First Option list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt1, 0, newComp))
+		btnAddOpt2 = tk.Button(newComp, text = "Add to Last Option list", command = lambda:self.ctrl.checkOption(entryOpt, listOpt2, 1, newComp)) 
+		btnRemOpt1 = tk.Button(newComp, text = "Remove from First Option list", command = lambda:self.ctrl.remFromListOpt(listOpt1, 0, newComp))
+		btnRemOpt2 = tk.Button(newComp, text = "Remove from Last Option list", command = lambda:self.ctrl.remFromListOpt(listOpt2, 1, newComp))
 		btnSubmit = tk.Button(newComp, text = "Add Compilation Test", 
 										pady = 10,
 										command = lambda:self.ctrl.checkComp(newComp, entryArr, list))
